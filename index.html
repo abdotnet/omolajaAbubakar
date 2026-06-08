@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abubakar Omolaja Portfolio | Enterprise Solution Architect</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #050508; color: #94a3b8; }
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(34, 211, 238, 0.4);
+            background-color: rgba(255, 255, 255, 0.03);
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.05);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-cyan-500/20 selection:text-cyan-300 relative overflow-x-hidden">
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const STRATEGIC_METRICS = [
+            { value: "14+", label: "Years Enterprise Experience" },
+            { value: "20+", label: "Ecosystem Integrations" },
+            { value: "7+", label: "Verticals Deployed" },
+            { value: "Multi-M", label: "Transactional Volumes" }
+        ];
+
+        const CORE_INDUSTRIES = [
+            "Financial Services", "FinTech", "Retail Banking", 
+            "Pensions", "Insurance", "EduTech", "HealthTech"
+        ];
+
+        const ENTERPRISE_SYSTEMS = [
+            {
+                title: "Core Banking Systems",
+                engines: ["Apache Fineract (Mifos)", "Mambu", "FCUBS", "Finacle"],
+                description: "Deep modular integration frameworks designed directly atop global financial engines to automate distributed accounting and digital credit delivery.",
+                capabilities: ["Distributed Ledger Sync", "Automated Credit Issuance", "High-Availability Middleware"]
+            },
+            {
+                title: "Risk, Finance & Compliance Engines",
+                description: "Algorithmic execution platforms mapping institutional regulatory ledgers to strict financial compliance frameworks.",
+                capabilities: ["Value at Risk (VaR) Modeling", "IFRS Financial Frameworks", "Regulatory Rendition Engines", "FSOP Platforms"]
+            },
+            {
+                title: "Pensions, Insurance & Channels",
+                description: "Multi-tenant ledger pooling modules and hardware terminal processing fields handling transactional volumes at scale.",
+                capabilities: ["Pension Remittance Systems", "Core Insurance Modules", "Agency Banking Platforms", "POS Reconciliation Loops"]
+            }
+        ];
+
+        const INTEGRATIONS = [
+            {
+                category: "Remittance & Mobile Money Networks",
+                items: ["Safaricom (IMTO, Lipa na M-Pesa)", "Airtel Money", "MTN Mobile Money", "Cellulant", "TrueAfrican Uganda"]
+            },
+            {
+                category: "Switching & Payment Gateways",
+                items: ["Interswitch UG/NG", "Remita NG", "XpressPayment", "CoralPay", "Havanoo"]
+            },
+            {
+                category: "International & Specialized Rails",
+                items: ["Ripple Blockchain (UK)", "PAPSS Network", "IPSL Kenya", "SRDS Rwanda", "Solv Kenya"]
+            },
+            {
+                category: "Card & Security Infrastructure",
+                items: ["BlueSalt (Card Management)", "Omniguard (Fraud Management)", "Universa eSIM", "SoftTeller Cameroon"]
+            }
+        ];
+
+        const TIMELINE = [
+            {
+                period: "2023 — PRESENT",
+                role: "Solution Architect / Software Engineer",
+                company: "Asante Finance Group (Remote)",
+                location: "Nairobi, Kenya",
+                highlights: [
+                    "Architected backend C# & Java microservices and infrastructure libraries to automate regional cooperative financial solutions across Africa.",
+                    "Seamlessly integrated internal computing platforms with core banking frameworks, including Apache Fineract (Mifos) and Mambu.",
+                    "Connected regional remittance and credit gateways across international domains including Interswitch UG, Remita NG, SRDS RW, and Solv KE.",
+                    "Secured high-traffic enterprise APIs using robust OAuth2/JWT paradigms; mapped out system topologies using FigJam and Confluence."
+                ]
+            },
+            {
+                period: "2021 — 2023",
+                role: "Tech Lead / Senior Software Engineer",
+                company: "Growmotely (Remote)",
+                location: "USA",
+                highlights: [
+                    "Migrated monolithic platforms to Event-Driven Microservices utilizing Spring Cloud architecture equivalents alongside Apache Kafka.",
+                    "Designed and executed complete asynchronous payment platforms facilitating inbound, outbound, and internal book transfers.",
+                    "Architected custom multi-tenant pension remittance systems, teller systems, and merchant/device financing modules."
+                ]
+            },
+            {
+                period: "2021 — 2021",
+                role: "Solution Architect / Senior Engineer",
+                company: "Venture Garden Group (VGG) (Remote)",
+                location: "Lagos, Nigeria",
+                highlights: [
+                    "Translated complex multi-stakeholder requirements into explicit, resilient distributed system architectures.",
+                    "Built and managed cross-functional engineering squads comprising developers, QA engineers, and DevOps specialists.",
+                    "Integrated cornerstone fintech solutions including physical POS systems, Virtual Account Services, Paystack, and Flutterwave rails."
+                ]
+            }
+        ];
+
+        const INNOVATION_LAB = [
+            {
+                title: "AI-Powered Medical Laboratory Analysis Engine",
+                tag: "HealthTech / Intelligence",
+                description: "An isolated artificial intelligence framework engineered to parse legacy pathological diagnostics metrics into clean, algorithmic clinical insights.",
+                features: ["Diagnostic Parsing Layers", "Pattern Anomaly Detection", "Secure Clinical Telemetry"],
+                tech: ["Node.js", "Python AI Core", "PostgreSQL"]
+            },
+            {
+                title: "Invoice Management System",
+                tag: "FinTech / SaaS",
+                description: "High-performance balance sheet engine tracking complex multitenant transaction states with automated multi-channel ledger updates.",
+                features: ["Real-time Ledgering", "Automated Billing Workflows", "Secure Audit Trails"],
+                tech: ["C# .NET Core", "Redis Cache", "PostgreSQL"]
+            },
+            {
+                title: "Performance Management Matrix",
+                tag: "Enterprise SaaS / HR",
+                description: "Internal evaluation metric framework designed to parse and aggregate high-volume corporate appraisal matrices and real-time employee appraisal data.",
+                features: ["Matrix Processing", "Real-time Appraisal Mapping", "Granular Security Controls"],
+                tech: ["Java Spring Boot", "SQL Server", "Docker"]
+            }
+        ];
+
+        const TECH_CATEGORIES = [
+            { title: "Architecture", skills: ["Microservices", "CQRS", "Event-Driven Architecture (Kafka)", "Domain-Driven Design (DDD)", "Ocelot API Gateway"] },
+            { title: "Back-End & Runtimes", skills: ["C# (.NET Core/Framework)", "Java (Spring Boot)", "Node.js", "TypeScript", "PHP", "gRPC", "GraphQL", "RESTful APIs"] },
+            { title: "Cloud & DevOps", skills: ["AWS", "Azure", "Kubernetes", "Docker", "OpenShift", "Jenkins", "GitHub Actions"] },
+            { title: "Data Stores", skills: ["PostgreSQL", "MSSQL", "MySQL", "MongoDB", "Redis"] }
+        ];
+
+        function Navbar({ currentView, setView }) {
+            const [isOpen, setIsOpen] = useState(false);
+
+            const navItems = [
+                { label: "About", href: "#about" },
+                { label: "Systems", href: "#systems" },
+                { label: "Integrations", href: "#integrations" },
+                { label: "Timeline", href: "#timeline" },
+                { label: "Projects", href: "#innovation" }
+            ];
+
+            const handleNavClick = (href) => {
+                setIsOpen(false);
+                if (currentView !== 'main') {
+                    setView('main');
+                    // Timeout allows DOM tree allocation back to core view before executing hash jump
+                    setTimeout(() => {
+                        window.location.hash = href;
+                    }, 100);
+                } else {
+                    window.location.hash = href;
+                }
+            };
+
+            return (
+                <nav className="fixed top-0 left-0 w-full z-50 bg-[#050508]/80 backdrop-blur-md border-b border-white/5">
+                    <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                        {/* Logo Matrix */}
+                        <div className="cursor-pointer" onClick={() => handleNavClick("#about")}>
+                            <span className="text-sm font-semibold tracking-wider text-white font-mono uppercase">
+                                AB.<span className="text-cyan-400">OMO</span>
+                            </span>
+                            <span className="hidden sm:inline text-[10px] text-slate-500 font-mono ml-3 border-l border-white/10 pl-3 uppercase">
+                                Architecture Field
+                            </span>
+                        </div>
+
+                        {/* Desktop Routing Terminal */}
+                        <div className="hidden md:flex items-center gap-8 text-xs font-mono tracking-widest">
+                            {navItems.map((item, index) => (
+                                <button 
+                                    key={index} 
+                                    onClick={() => handleNavClick(item.href)}
+                                    className="text-slate-400 hover:text-white transition-colors duration-200"
+                                >
+                                    {item.label.toUpperCase()}
+                                </button>
+                            ))}
+                            <button 
+                                onClick={() => setView(currentView === 'main' ? 'contact' : 'main')}
+                                className={`px-4 py-2 rounded border text-xs font-mono uppercase tracking-widest transition-all duration-300 ${
+                                    currentView === 'contact' 
+                                        ? 'bg-transparent border-slate-500 text-slate-400 hover:text-white hover:border-white' 
+                                        : 'bg-white text-black border-white hover:bg-cyan-400 hover:border-cyan-400 font-semibold'
+                                }`}
+                            >
+                                {currentView === 'main' ? 'CONNECT' : 'OVERVIEW'}
+                            </button>
+                        </div>
+
+                        {/* Mobile Infrastructure Trigger */}
+                        <button 
+                            onClick={() => setIsOpen(!isOpen)} 
+                            className="md:hidden text-slate-400 hover:text-white focus:outline-none"
+                            aria-label="Toggle Menu"
+                        >
+                            <i className={`fa-solid ${isOpen ? 'fa-xmark' : 'fa-bars'} text-xl`}></i>
+                        </button>
+                    </div>
+
+                    {/* Mobile Navigation Mesh Overlay */}
+                    {isOpen && (
+                        <div className="md:hidden border-t border-white/5 bg-[#050508]/95 backdrop-blur-lg w-full px-6 py-6 space-y-4 absolute left-0 top-20 flex flex-col shadow-2xl">
+                            {navItems.map((item, index) => (
+                                <button 
+                                    key={index} 
+                                    onClick={() => handleNavClick(item.href)}
+                                    className="text-left text-sm font-mono tracking-widest text-slate-400 hover:text-white py-2 border-b border-white/[0.02]"
+                                >
+                                    // {item.label.toUpperCase()}
+                                </button>
+                            ))}
+                            <button 
+                                onClick={() => { setView(currentView === 'main' ? 'contact' : 'main'); setIsOpen(false); }}
+                                className="w-full text-center bg-white text-black font-mono text-xs font-semibold uppercase tracking-widest py-3.5 rounded mt-4"
+                            >
+                                {currentView === 'main' ? 'Initiate Connection Matrix' : 'Return to Infrastructure Overview'}
+                            </button>
+                        </div>
+                    )}
+                </nav>
+            );
+        }
+
+        function MainPortfolio({ onNavigateToContact }) {
+            const [activeGroup, setActiveGroup] = useState(0);
+
+            return (
+                <div className="max-w-7xl mx-auto px-6 relative z-10">
+                    {/* Hero Section */}
+                    <header id="about" className="pt-32 pb-32 grid lg:grid-cols-12 gap-12 items-center border-b border-white/5">
+                        <div className="lg:col-span-7 space-y-8">
+                            <div className="inline-flex items-center gap-3 px-3 py-1 rounded-full bg-white/[0.02] border border-white/10 text-[11px] font-mono tracking-wider text-cyan-400">
+                                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                                Available for Strategic Enterprise Consulting
+                            </div>
+                            <h1 className="text-4xl sm:text-6xl font-light text-white leading-[1.12] tracking-tight">
+                                Architecting the Technology Foundations That Drive <br />
+                                <span className="italic font-serif font-semibold text-gradient bg-gradient-to-r from-white to-cyan-400">Modern Digital Enterprises</span>
+                            </h1>
+                            <p className="text-lg text-slate-400 font-light leading-relaxed max-w-2xl">
+                                Enterprise-grade Solution Architect and Software Engineer with over 14 years of professional experience designing, deploying, and scaling robust distributed architectures, fintech payment rails, and high-throughput microservices.
+                            </p>
+                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-6">
+                                {STRATEGIC_METRICS.map((metric, i) => (
+                                    <div key={i} className="border border-white/5 bg-white/[0.01] p-4 rounded-xl">
+                                        <div className="text-3xl font-light text-white font-mono tracking-tight">{metric.value}</div>
+                                        <div className="text-[11px] text-slate-500 font-mono uppercase tracking-wider mt-1">{metric.label}</div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="flex flex-wrap gap-4 pt-4 text-xs font-mono tracking-widest items-center">
+                                <a href="tel:+2348130230146" className="flex items-center gap-2 text-slate-300 hover:text-cyan-400 transition">
+                                    <i className="fa-solid fa-phone text-cyan-500"></i> +234 813 023 0146
+                                </a>
+                                <span className="text-slate-700">|</span>
+                                <a href="https://www.linkedin.com/in/omolaja-a-10975051/" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-slate-300 hover:text-cyan-400 transition">
+                                    <i className="fa-brands fa-linkedin text-cyan-500"></i> LinkedIn
+                                </a>
+                                <span className="text-slate-700">|</span>
+                                <a href="https://github.com/abdotnet" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-slate-300 hover:text-cyan-400 transition">
+                                    <i className="fa-brands fa-github text-cyan-500"></i> GitHub
+                                </a>
+                            </div>
+                        </div>
+                        <div className="lg:col-span-5 flex justify-center lg:justify-end">
+                            <div className="relative w-full max-w-[340px] aspect-[4/5] rounded-2xl overflow-hidden bg-gradient-to-b from-white/10 to-white/0 border border-white/10 p-4">
+                                <div className="w-full h-full rounded-lg bg-slate-900 border border-white/5 flex flex-col items-center justify-center text-center p-4">
+                                    <div className="w-full h-full rounded-md overflow-hidden">
+                                        <img 
+                                            src="./asset/omo21.jpg" 
+                                            alt="Abubakar Omolaja" 
+                                            style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* Industries Matrix */}
+                    <section className="py-12 border-b border-white/5">
+                        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 block mb-6 text-center lg:text-left">Validated Vertical Knowledge Architecture</span>
+                        <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+                            <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+                                {CORE_INDUSTRIES.map((industry, index) => (
+                                    <span key={index} className="px-4 py-2 rounded-md bg-white/[0.02] border border-white/5 font-mono text-xs text-slate-400 hover:border-cyan-400/40 hover:text-white transition-all">
+                                        {industry}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Systems Deployments */}
+                    <section id="systems" className="py-24 border-b border-white/5">
+                        <h2 className="text-xs font-mono uppercase text-cyan-400 tracking-widest mb-12">// ARCHITECTURAL DEPLOYMENTS</h2>
+                        <div className="grid md:grid-cols-3 gap-6">
+                            {ENTERPRISE_SYSTEMS.map((system, i) => (
+                                <div key={i} className="bg-white/[0.01] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-all flex flex-col justify-between">
+                                    <div>
+                                        <h3 className="text-xl text-white font-medium mb-3">{system.title}</h3>
+                                        {system.engines && (
+                                            <div className="flex flex-wrap gap-1.5 font-mono text-[10px] text-cyan-400 mb-4">
+                                                {system.engines.map((eng, idx) => (
+                                                    <span key={idx} className="bg-cyan-500/5 px-2 py-0.5 rounded border border-cyan-500/10">{eng}</span>
+                                                ))}
+                                            </div>
+                                        )}
+                                        <p className="text-xs text-slate-400 font-light leading-relaxed mb-6">{system.description}</p>
+                                    </div>
+                                    <div className="border-t border-white/5 pt-4 space-y-2">
+                                        {system.capabilities.map((cap, idx) => (
+                                            <div key={idx} className="flex items-center gap-2 text-xs text-slate-300">
+                                                <i className="fa-regular fa-circle-check text-cyan-500 text-[11px]"></i>
+                                                <span className="font-light">{cap}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Integrations Module */}
+                    <section id="integrations" className="py-24 border-b border-white/5">
+                        <div className="grid lg:grid-cols-12 gap-12">
+                            <div className="lg:col-span-5 space-y-4">
+                                <span className="text-xs font-mono uppercase text-cyan-400 tracking-widest">// CONNECTIVITY ARCHITECTURE</span>
+                                <h2 className="text-3xl font-light text-white tracking-tight">Payment Ecosystem Integration Rails</h2>
+                                <div className="space-y-2 pt-4">
+                                    {INTEGRATIONS.map((group, idx) => (
+                                        <button 
+                                            key={idx}
+                                            onClick={() => setActiveGroup(idx)}
+                                            className={`w-full text-left px-4 py-3 rounded-xl border text-xs font-mono uppercase tracking-wider transition-all flex items-center justify-between ${activeGroup === idx ? 'bg-white/5 border-cyan-500/40 text-white' : 'bg-transparent border-transparent text-slate-500'}`}
+                                        >
+                                            <span>{group.category}</span>
+                                            <i className="fa-solid fa-chevron-right text-[10px]"></i>
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="lg:col-span-7 bg-white/[0.01] border border-white/5 rounded-2xl p-8">
+                                <div className="grid sm:grid-cols-2 gap-3">
+                                    {INTEGRATIONS[activeGroup].items.map((item, idx) => (
+                                        <div key={idx} className="bg-white/[0.02] border border-white/5 rounded-xl p-4 flex items-center justify-between">
+                                            <span className="text-sm font-light text-slate-200">{item}</span>
+                                            <span className="text-[10px] font-mono text-cyan-500/60">ONLINE</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Professional Timeline */}
+                    <section id="timeline" className="py-24 border-b border-white/5">
+                        <h2 className="text-xs font-mono uppercase text-cyan-400 tracking-widest mb-12">// RECENT PRODUCTION RUNS</h2>
+                        <div className="space-y-12 max-w-5xl border-l border-white/10 pl-6 ml-4">
+                            {TIMELINE.map((exp, i) => (
+                                <div key={i} className="relative space-y-2">
+                                    <div className="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-slate-900 border-2 border-cyan-400"></div>
+                                    <div className="text-xs font-mono text-slate-500">{exp.period}</div>
+                                    <h3 className="text-lg font-medium text-white">{exp.role}</h3>
+                                    <div className="text-xs font-mono text-slate-400">{exp.company} • {exp.location}</div>
+                                    <ul className="space-y-2 text-xs text-slate-400 font-light list-disc pl-4 pt-2">
+                                        {exp.highlights.map((highlight, idx) => <li key={idx}>{highlight}</li>)}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Innovation Lab */}
+                    <section id="innovation" className="py-24 border-b border-white/5">
+                        <h2 className="text-xs font-mono uppercase text-cyan-400 tracking-widest mb-12">// PRIVATE UTILITY PROJECTS</h2>
+                        <div className="grid md:grid-cols-3 gap-6">
+                            {INNOVATION_LAB.map((proj, i) => (
+                                <div key={i} className="bg-white/[0.01] border border-white/5 rounded-2xl p-6 flex flex-col justify-between">
+                                    <div>
+                                        <span className="text-[10px] font-mono text-cyan-400 uppercase">{proj.tag}</span>
+                                        <h3 className="text-base font-medium text-white mt-1 mb-3">{proj.title}</h3>
+                                        <p className="text-xs text-slate-400 font-light leading-relaxed mb-4">{proj.description}</p>
+                                    </div>
+                                    <div className="flex flex-wrap gap-1 font-mono text-[9px] text-slate-500">
+                                        {proj.tech.map((t, idx) => <span key={idx} className="bg-white/5 px-2 py-0.5 rounded border border-white/5">{t}</span>)}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Technology Stack Matrix */}
+                    <section className="py-24 border-b border-white/5">
+                        <h2 className="text-xs font-mono uppercase text-cyan-400 tracking-widest mb-12">// STACK ARCHITECTURE MATRIX</h2>
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            {TECH_CATEGORIES.map((cat, i) => (
+                                <div key={i} className="bg-white/[0.01] border border-white/5 p-6 rounded-xl">
+                                    <h3 className="text-xs font-mono text-slate-400 border-b border-white/5 pb-2 mb-3">// {cat.title}</h3>
+                                    <div className="flex flex-wrap gap-1.5">
+                                        {cat.skills.map((skill, idx) => (
+                                            <span key={idx} className="bg-white/[0.02] border border-white/5 text-slate-300 font-mono text-[11px] px-2 py-1 rounded">{skill}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Footer / Call To Action */}
+                    <footer className="py-24 text-center space-y-6 max-w-xl mx-auto">
+                        <h2 className="text-3xl font-light text-white tracking-tight">Let's Engineer Your Next Platform Infrastructure Journey</h2>
+                        <p className="text-xs text-slate-400 font-light leading-relaxed">Available for enterprise architecture consulting, transactional routing optimization, and digital ledger auditing.</p>
+                        <div className="pt-4">
+                            <button onClick={onNavigateToContact} className="inline-block bg-white text-black font-mono text-xs uppercase tracking-widest px-8 py-4 rounded font-semibold hover:bg-cyan-400 transition-all duration-300">
+                                Initiate Connection Matrix
+                            </button>
+                        </div>
+                        <div className="flex justify-center items-center gap-6 pt-8 text-xs font-mono text-slate-500">
+                            <a href="tel:+2348130230146" className="hover:text-white transition flex items-center gap-1.5">
+                                <i className="fa-solid fa-phone"></i> +234 813 023 0146
+                            </a>
+                            <span className="text-slate-700">|</span>
+                            <a href="https://www.linkedin.com/in/omolaja-a-10975051/" target="_blank" rel="noreferrer" className="hover:text-white transition flex items-center gap-1.5">
+                                <i className="fa-brands fa-linkedin"></i> LINKEDIN
+                            </a>
+                            <span className="text-slate-700">|</span>
+                            <a href="https://github.com/abdotnet" target="_blank" rel="noreferrer" className="hover:text-white transition flex items-center gap-1.5">
+                                <i className="fa-brands fa-github"></i> GITHUB
+                            </a>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        function ContactPage({ onBack }) {
+            const [formState, setFormState] = useState({ name: '', email: '', project: '', message: '' });
+            const [submitted, setSubmitted] = useState(false);
+            const [loading, setLoading] = useState(false);
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                setLoading(true);
+                 alert("Message dispatched successfully!");
+                setSubmitted(true);
+            };
+
+            return (
+                <div className="max-w-7xl mx-auto px-6 relative z-10 pt-32 pb-32">
+                    <div className="mb-12">
+                        <button onClick={onBack} className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-slate-400 hover:text-cyan-400 transition">
+                            <i className="fa-solid fa-arrow-left transition-transform group-hover:-translate-x-1"></i> Return to Infrastructure Overview
+                        </button>
+                    </div>
+
+                    <div className="grid lg:grid-cols-12 gap-16 items-start">
+                        <div className="lg:col-span-5 space-y-8">
+                            <div className="space-y-4">
+                                <span className="text-xs font-mono uppercase text-cyan-400 tracking-widest">// HANDSHAKE PROTOCOL</span>
+                                <h1 className="text-4xl font-light text-white leading-tight tracking-tight">
+                                    Let’s Build Something <br />
+                                    <span className="italic font-serif font-semibold text-gradient bg-gradient-to-r from-white to-cyan-400">Highly Available</span>
+                                </h1>
+                                <p className="text-sm text-slate-400 font-light leading-relaxed">
+                                    Seeking specialized consulting pipelines, backend framework transformations, or scalable ecosystem optimization metrics? Send over your scope configurations.
+                                </p>
+                            </div>
+
+                            <div className="space-y-4 border-t border-white/5 pt-8">
+                                <div className="flex items-start gap-4">
+                                    <div className="w-10 h-10 rounded-lg bg-white/[0.02] border border-white/10 flex items-center justify-center text-cyan-400 flex-shrink-0">
+                                        <i className="fa-solid fa-envelope-open text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <h4 className="text-xs font-mono text-slate-500 uppercase tracking-wider">Direct Endpoint</h4>
+                                        <a href="mailto:abudotnet@gmail.com" className="text-sm text-white hover:text-cyan-400 font-light transition">abudotnet@gmail.com</a>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-start gap-4">
+                                    <div className="w-10 h-10 rounded-lg bg-white/[0.02] border border-white/10 flex items-center justify-center text-cyan-400 flex-shrink-0">
+                                        <i className="fa-solid fa-terminal text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <h4 className="text-xs font-mono text-slate-500 uppercase tracking-wider">Secure Signal Line</h4>
+                                        <a href="tel:+2348130230146" className="text-sm text-white hover:text-cyan-400 font-light transition">+234 813 023 0146</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="lg:col-span-7 bg-white/[0.01] border border-white/5 rounded-2xl p-8 lg:p-10 relative overflow-hidden">
+                            <form onSubmit={handleSubmit} className="space-y-6">
+                                <div>
+                                    <label className="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-2">Identifier / Name</label>
+                                    <input type="text" required className="w-full bg-white/[0.01] border border-white/10 rounded-xl px-4 py-3 text-sm text-white form-input transition-all" value={formState.name} onChange={e => setFormState({...formState, name: e.target.value})} />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-2">Routing Endpoint / Email</label>
+                                    <input type="email" required className="w-full bg-white/[0.01] border border-white/10 rounded-xl px-4 py-3 text-sm text-white form-input transition-all" value={formState.email} onChange={e => setFormState({...formState, email: e.target.value})} />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-2">Message Payload</label>
+                                    <textarea required rows="4" className="w-full bg-white/[0.01] border border-white/10 rounded-xl px-4 py-3 text-sm text-white form-input transition-all" value={formState.message} onChange={e => setFormState({...formState, message: e.target.value})}></textarea>
+                                </div>
+                                <button  disabled={loading} type="submit" className="w-full bg-white text-black font-mono text-xs uppercase tracking-widest py-4 rounded font-semibold hover:bg-cyan-400 transition-all">
+                                     {loading ? "Dispatch Payload Completed" : "Dispatch Payload"}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function App() {
+            const [view, setView] = useState('main');
+            return (
+                <div className="min-h-screen">
+                    <Navbar currentView={view} setView={setView} />
+                    {view === 'main' 
+                        ? <MainPortfolio onNavigateToContact={() => setView('contact')} /> 
+                        : <ContactPage onBack={() => setView('main')} />}
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
